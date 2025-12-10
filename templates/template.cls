@@ -1,10 +1,11 @@
 % LaTeX predložak za pismene radove na
-% Pokriveni radovi su: Seminar, Završni i Diplomski rad
+% Pokriveni radovi su: Seminar, Završni, Diplomski rad i Projekt
 %
 % Opcije:
 %  - seminar - podesi stil za Seminar (standardna postavka)
 %  - diplomski - podesi stil za Diplomski rad
 %  - zavrsni - podesi stil za Završni rad
+%  - projekt - podesi stil za Projekt
 %  - lmodern - koristi font lmodern (standardna postavka)
 %  - times - koristi font times
 %  - utf8 - učitaj inputenc paket i opcijom utf8 (standardna postavka)
@@ -21,6 +22,7 @@
 \newif\if@radzavrsni		\global\@radzavrsnifalse
 \newif\if@radseminar		\global\@radseminartrue
 \newif\if@raddiplomski		\global\@raddiplomskifalse
+\newif\if@radprojekt		\global\@radprojektfalse
 \newif\if@citeauthoryear	\global\@citeauthoryeartrue
 \newif\if@citenumeric		\global\@citenumericfalse
 \newif\if@encutf			\global\@encutftrue
@@ -35,13 +37,20 @@
 % Tip rada
 \DeclareOption{seminar}{\@radseminartrue%
 					  \@radzavrsnifalse%
-					  \@raddiplomskifalse}
+					  \@raddiplomskifalse%
+					  \@radprojektfalse}
 \DeclareOption{zavrsni}{\@radseminarfalse%
 					  \@radzavrsnitrue%
-					  \@raddiplomskifalse}
+					  \@raddiplomskifalse%
+					  \@radprojektfalse}
 \DeclareOption{diplomski}{\@radseminarfalse%
 					  \@radzavrsnifalse%
-					  \@raddiplomskitrue}
+					  \@raddiplomskitrue%
+					  \@radprojektfalse}
+\DeclareOption{projekt}{\@radseminarfalse%
+					  \@radzavrsnifalse%
+					  \@raddiplomskifalse%
+					  \@radprojekttrue}
 					  
 % Encoding
 \DeclareOption{utf8}{\@encutftrue%
@@ -91,6 +100,8 @@
 \if@citeauthoryear \RequirePackage[authoryear, round]{natbib}
 \else \RequirePackage[numbers, square]{natbib}
 \fi
+
+\RequirePackage[hidelinks]{hyperref}
 
 % Umjesto poziva \RequirePackage[outsidefoot]{pageno}.
 % Neke LaTeX distribucije odbijaju automatski instalirati pageno paket.
@@ -261,49 +272,87 @@ Koristi \noexpand\voditelj za definiranje}}
 \def\@thesisnumber{\@latex@warning@no@line{Broj rada nije definiran.
 Koristi \noexpand\thesisnumber za definiranje}}
 
+\def\verzija#1{\gdef\@verzija{#1}}
+\def\@verzija{1.0}
+
 \if@titlepage
 	\renewcommand\maketitle{%
 	\begin{titlepage}%
 		\let\footnotesize\small
 		\let\footnoterule\relax
 	
-		\begin{center}
-			{\large\sffamily \@sveuciliste}
-			
-			{\large\bfseries\sffamily \@fakultet}
-		\end{center}
-		\vfill
-		\begin{center}%
-	    	\if@radzavrsni%
-			  {\large\sffamily ZAVR\v{S}NI RAD br.~\@thesisnumber \par}%
-			\else \if@raddiplomski%
-			  {\large\sffamily DIPLOMSKI RAD br.~\@thesisnumber \par}%
-			\else {\large\sffamily\bfseries SEMINAR \par}%
-			\fi\fi
-			\if@radseminar \vskip 3em%
-			\else \vskip 1em%
-			\fi
-			{\huge \bfseries\sffamily \@title \par}%
-			\vskip 1em%
-			{\large\sffamily\lineskip .75em%
-			\begin{tabular}[t]{c}%
-	        	\if@radseminar%
-	        	  {\itshape \@author} \\
-	        	  Voditelj: {\itshape \@voditelj}
-	        	\else
-				    \@author
-				\fi
-			\end{tabular}\par}%
-		\end{center}\par
-		\vfill
-		\begin{center}
-			{\sffamily\large Zagreb, 
-			\ifcase\month\or
-				sije\v{c}anj\or velja\v{c}a\or o\v{z}ujak\or travanj\or svibanj\or
-	   	 		lipanj\or srpanj\or kolovoz\or rujan\or listopad\or studeni\or
+		\if@radprojekt%
+			% Custom layout for Projekt
+			\begin{center}
+				{\large\sffamily \@sveuciliste}
+				
+				{\large\bfseries\sffamily \@fakultet}
+			\end{center}
+			\vfill
+			\begin{center}%
+				{\huge \bfseries\sffamily \@title \par}%
+				\vskip 1em%
+				{\Large\sffamily Tehnička dokumentacija \par}%
+				\vskip 0.5em%
+				{\large\sffamily Verzija \@verzija \par}%
+			\end{center}\par
+			\vfill
+			\begin{center}
+				{\large\sffamily Studentski tim: \par}
+				\vskip 0.5em
+				{\large\sffamily\itshape \@author \par}
+				\vskip 2em%
+				{\large\sffamily Nastavnik: {\itshape \@voditelj}}
+			\end{center}
+			\vfill
+			\begin{center}
+				{\sffamily\large Zagreb, 
+				\ifcase\month\or
+					sije\v{c}anj\or velja\v{c}a\or o\v{z}ujak\or travanj\or svibanj\or
+	   	 			lipanj\or srpanj\or kolovoz\or rujan\or listopad\or studeni\or
 	    			prosinac\fi \space \number\year.%
-	    	}
-		\end{center}
+	    		}
+			\end{center}
+		\else%
+			% Original layout for other types
+			\begin{center}
+				{\large\sffamily \@sveuciliste}
+				
+				{\large\bfseries\sffamily \@fakultet}
+			\end{center}
+			\vfill
+			\begin{center}%
+		    	\if@radzavrsni%
+				  {\large\sffamily ZAVR\v{S}NI RAD br.~\@thesisnumber \par}%
+				\else \if@raddiplomski%
+				  {\large\sffamily DIPLOMSKI RAD br.~\@thesisnumber \par}%
+				\else {\large\sffamily\bfseries SEMINAR \par}%
+				\fi\fi
+				\if@radseminar \vskip 3em%
+				\else \vskip 1em%
+				\fi
+				{\huge \bfseries\sffamily \@title \par}%
+				\vskip 1em%
+				{\large\sffamily\lineskip .75em%
+				\begin{tabular}[t]{c}%
+		        	\if@radseminar%
+		        	  {\itshape \@author} \\
+		        	  Voditelj: {\itshape \@voditelj}
+		        	\else
+					    \@author
+					\fi
+				\end{tabular}\par}%
+			\end{center}\par
+			\vfill
+			\begin{center}
+				{\sffamily\large Zagreb, 
+				\ifcase\month\or
+					sije\v{c}anj\or velja\v{c}a\or o\v{z}ujak\or travanj\or svibanj\or
+	   	 			lipanj\or srpanj\or kolovoz\or rujan\or listopad\or studeni\or
+	    			prosinac\fi \space \number\year.%
+	    		}
+			\end{center}
+		\fi%
 	\end{titlepage}%
 	\setcounter{footnote}{0}%
 	\global\let\maketitle\relax

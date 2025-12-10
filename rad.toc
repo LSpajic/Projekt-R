@@ -1,0 +1,4 @@
+\babel@toc {croatian}{}\relax 
+\contentsline {chapter}{\numberline {1}Opis razvijenog proizvoda}{1}{}%
+\contentsline {chapter}{\numberline {2}Tehničke značajke}{2}{}%
+\contentsline {chapter}{\numberline {3}Upute za korištenje}{3}{}%

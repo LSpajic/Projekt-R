@@ -1,72 +1,63 @@
-% TODO: Navedite tip rada (diplomski, zavrsni, seminar). Vidi docs folder za upute ili templates/template.cls.
-\documentclass[times, utf8, diplomski, numeric]{templates/template}
+\documentclass[times, utf8, projekt, numeric]{templates/template}
 \usepackage{booktabs}
+\usepackage{lipsum}
 
 \begin{document}
 
 % TODO: Dodaj imena sveucilista i fakulteta
-\sveuciliste{SVEUČILIŠTE U ZAGORJU}
-\fakultet{FAKULTET ELEKTROTEHNIKE I DOSADE}
+\sveuciliste{SVEUČILIŠTE U ZAGREBU}
+\fakultet{Fakultet elektrotehnike i računarstva}
 
-% TODO: Dodaj ime i prezime voditelja. 
-% Samo ako pisete seminar (inace ignorirajte ili izbrisite)
-\voditelj{Ime i prezime voditelja}
+% TODO: Dodaj ime i prezime voditelja/nastavnika
+\voditelj{Tomislav Petković}
 
-% TODO: Dodaj naslov rada
-\title{Ovo je naslov rada}
+% TODO: Dodaj naziv projekta
+\title{Naziv projekta}
 
-% TODO: Dodaj broj rada (ignoriraj ako pisete seminar)
-\thesisnumber{001}
+% TODO: Dodaj verziju (opciono, default je 1.0)
+\verzija{1.0}
 
-% TODO: Dodaj ime i prezime (ili vise njih odvojene zarezima)
-\author{Ime i prezime autora}
+% TODO: Dodaj članove studentskog tima (svaki u novom redu)
+% Koristite \\ za novi red između članova tima
+\author{Lovro Spajic \\
+Zvonimir Stracenski}
 
 \maketitle
 
-% Ispis stranice s napomenom o umetanju izvornika rada. 
-% Ignorirajte ako pisete seminar.
-% Uklonite naredbu \izvornik ako želite izbaciti tu stranicu.
-\izvornik
-
-% TODO: Dodaj zahvalu
-% Ignorirajte ako pisete seminar.
-% Uklonite naredbu \zahvala ako zelite izbaciti tu stranicu.
-\zahvala{Ovdje ide zahvala}
-
 \tableofcontents
 
-% TODO: Dodaj Uvod
-\chapter{Uvod}
-Ovdje ide uvod.
+% Poglavlje 1: Opis razvijenog proizvoda
+\chapter{Opis razvijenog proizvoda}
+\section{Uvod u proizvod}
+\lipsum[1] \cite{oetiket2007lshort}
 
-% Citate dodaj u `literatura.bib' file
-\chapter{Kako citirati}
-Ovako se citira na pravilan način \cite{oetiket2007lshort}. I onda još malo teksta \cite{downes2002shortams}. 
-Evo još malo teksta kojeg citiramo ovako \cite{ungar2002uvod}.
+\section{Glavne funkcionalnosti}
+\lipsum[2]
+\subsection{Detalji funkcionalnosti A}
+\lipsum[3]
 
-% TODO: dodaj zakljucak
-\chapter{Zaključak}
-Ovdje ide zaključak.
+% Poglavlje 2: Tehničke značajke
+\chapter{Tehničke značajke}
+\section{Arhitektura}
+\lipsum[4] \cite{downes2002shortams}
 
+\section{Tehnologije}
+\lipsum[5]
+\subsection{Backend}
+\lipsum[6]
+\subsection{Frontend}
+\lipsum[7]
+
+% Poglavlje 3: Upute za korištenje
+\chapter{Upute za korištenje}
+\section{Instalacija}
+\lipsum[8] \cite{ungar2002uvod}
+
+\section{Korištenje}
+\lipsum[9-10]
+
+% Literatura - citate dodaj u 'literatura.bib' file
 \bibliographystyle{templates/template}
 \bibliography{literatura}
-
-% TODO: dodaj sazetak
-\begin{sazetak}
-Ovdje ide sažetak na hrvatskom jeziku.
-
-% TODO: dodaj kljucne rijeci
-\kljucnerijeci{Ovdje, idu, ključne, riječi, odvojene, zarezima.}
-\end{sazetak}
-
-% TODO: Dodaj naslov na engleskom
-\engtitle{Put here title on english}
-% TODO: Navedite Abstract
-\begin{abstract}
-Add abstract here.
-
-% TODO: Navedite Keywords
-\keywords{Add, keywords, here.}
-\end{abstract}
 
 \end{document}
